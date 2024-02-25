@@ -9,6 +9,9 @@ const Login = ({onLoginSuccess, onLoginError}) => {
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
   };
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+  }
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
@@ -22,7 +25,7 @@ const Login = ({onLoginSuccess, onLoginError}) => {
   const handleLogin = () => {
     // Substitua a URL da API pelo seu endpoint real
     const apiUrl = "http://localhost:8083/auth/login";
-    console.log("a")
+    
     fetch(apiUrl, {
       method: 'POST',
       headers: {
@@ -35,8 +38,9 @@ const Login = ({onLoginSuccess, onLoginError}) => {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error(`Erro HTTP! Status: ${response.status}`);
           onLoginError();
+          throw new Error(`Erro HTTP! Status: ${response.status}`);
+          
         }
         return response.json();
       })
@@ -93,9 +97,10 @@ const Login = ({onLoginSuccess, onLoginError}) => {
   };
 
   return (
+    <div className="corpo">
     <div className={`container ${activeTab === 'register' ? 'active' : ''}`}>
       <div className="form-container sign-up">
-        <form>
+        <form onSubmit={handleFormSubmit}>
           <h1>Criar Conta</h1>
           <span>Ou use seu e-mail para se registrar</span>
           <input type="text" placeholder="Nome" value={fullName} onChange={handleFullNameChange} required />
@@ -105,7 +110,7 @@ const Login = ({onLoginSuccess, onLoginError}) => {
         </form>
       </div>
       <div className="form-container sign-in">
-        <form>
+        <form onSubmit={handleFormSubmit}>
           <h1>Login</h1>
           <span>ou use sua senha de e-mail</span>
           <input type="email" placeholder="Email" value={username} onChange={handleUsernameChange} required />
@@ -127,6 +132,7 @@ const Login = ({onLoginSuccess, onLoginError}) => {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };

@@ -1,10 +1,13 @@
 import '../assets/styles/CentralPage.css';
+import Contas from '../components/Contas';
 export default function CentralPage() {
     
     
     return (
-      <div className="">
-        <p>Login efetuado</p>
+      
+      <div>
+        <div></div>
+        <Contas/>
       </div>
     );
   }
